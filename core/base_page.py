@@ -36,3 +36,15 @@ class BasePage:
         element = self.find_element(locator, timeout)
         text = element.text
         return text
+    
+    def verify_url_contains(self, url_fragment, timeout=None):
+        wait_time = timeout or self.timeout
+        try:
+            WebDriverWait(self.driver, wait_time).until(
+                EC.url_contains(url_fragment)
+            )
+        except TimeoutException:
+            current_url = self.driver.current_url
+            raise AssertionError(
+                f"Expected URL to contain '{url_fragment}', but current URL is '{current_url}'"
+            )

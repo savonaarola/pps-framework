@@ -9,6 +9,7 @@ def test_compare_amount_online_vs_ingame(driver):
     main_page.click_about_button()
     
     about_page = SteamAboutPage(driver)
+    about_page.veify_page_loaded()
     online_amount = about_page.get_amount_players_online()
     ingame_amount = about_page.get_amount_players_ingame()
     
