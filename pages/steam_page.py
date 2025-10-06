@@ -17,5 +17,5 @@ class SteamAboutPage(BasePage):
     def get_amount_players_online(self):
         return self.get_text(self.ONLINE_PLAYERS_AMOUNT)
     
-    def get_amount_players_online(self):
+    def get_amount_players_ingame(self):
         return self.get_text(self.INGAME_PLAYERS_AMOUNT)
