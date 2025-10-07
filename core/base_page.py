@@ -22,7 +22,16 @@ class BasePage:
             return element
         except TimeoutException:
             raise 
-
+    def find_elements(self, locator, timeout=None):
+        wait_time = timeout or self.timeout
+        try:
+            elements = WebDriverWait(self.driver,wait_time).until(
+                EC.presence_of_all_elements_located(locator)
+            )
+            return elements
+        except TimeoutException:
+            raise
+        
     def click(self, locator, timeout=None):
         wait_time = timeout or self.timeout
         try:
