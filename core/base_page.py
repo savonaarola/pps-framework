@@ -1,5 +1,8 @@
 from config.settings import settings
 
+from selenium import webdriver
+from typing import Union
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -8,7 +11,7 @@ from selenium.common.exceptions import TimeoutException
 
 
 class BasePage:
-    def __init__(self, driver):
+    def __init__(self, driver: Union[webdriver.Chrome, webdriver.Firefox, webdriver.Remote]):
         self.driver = driver
         self.timeout = settings.IMPLICIT_WAIT
         self.wait = WebDriverWait(self.driver, self.timeout)
@@ -38,7 +41,30 @@ class BasePage:
             element = WebDriverWait(self.driver, wait_time).until(
                 EC.element_to_be_clickable(locator)
             )
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
+            element = WebDriverWait(self.driver, wait_time).until(
+                EC.element_to_be_clickable(locator)
+            )
             element.click()
+        except TimeoutException:
+            raise
+    def click_js(self, locator, timeout=None):
+        wait_time = timeout or self.timeout
+        try:
+            element = WebDriverWait(self.driver, wait_time).until(
+                EC.element_to_be_clickable(locator)
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
+            self.driver.execute_script("arguments[0].click();", element)
+        except TimeoutException:
+            raise
+    def to_be_clickable(self, locator, timeout=None):
+        wait_time = timeout or self.timeout
+        try:
+            element = WebDriverWait(self.driver, wait_time).until(
+                EC.element_to_be_clickable(locator)
+            )
+            return element
         except TimeoutException:
             raise
     def get_text(self,locator,timeout=None):
