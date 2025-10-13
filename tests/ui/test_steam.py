@@ -1,6 +1,8 @@
 from pages.steam_page import SteamAboutPage,SteamMainPage,SteamGamePage
 import pytest
+from core.logger import logging
 
+logger = logging.getLogger(__name__)
 
 @pytest.mark.ui
 def test_compare_amount_online_vs_ingame(driver):
@@ -12,7 +14,7 @@ def test_compare_amount_online_vs_ingame(driver):
     about_page.veify_page_loaded()
     online_amount = about_page.get_amount_players_online()
     ingame_amount = about_page.get_amount_players_ingame()
-    
+    logger.info(f"Players online: {online_amount}, Players in-game: {ingame_amount}")
     assert online_amount > ingame_amount
 
 
@@ -47,6 +49,7 @@ def test_check_top_seller(driver):
 
     assert topseller_name == game_name
 
-    print(f"Game name: {game_name}")
-    print(f"Game release date: {game_page.get_game_release_date()}")
-    print(f"Game developers: {game_page.get_game_developers()}")
+    logger.info(f"Game name: {game_name}")
+    logger.info(f"Game release date: {game_page.get_game_release_date()}")
+    logger.info(f"Game developers: {game_page.get_game_developers()}")
+    

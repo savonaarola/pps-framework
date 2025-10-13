@@ -3,7 +3,9 @@ from selenium import webdriver
 from config.settings import settings
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from core.logger import logging
 
+logger = logging.getLogger(__name__)
 
 
 
@@ -13,16 +15,19 @@ class DriverFactory:
     @staticmethod
     def create_driver(browser: str):
         browser_name = (browser or settings.BROWSER).lower()
+        logger.info(f"Creating {browser_name} driver")
         if browser_name == "chrome":
             driver = DriverFactory._create_chrome_driver()
         elif browser_name == "firefox":
             driver = DriverFactory._create_firefox_driver()
         else:
+            logger.error(f"Unsupported browser: {browser_name}")
             raise ValueError(f"Unsupported browser: {browser_name}")
         
         driver.implicitly_wait(settings.IMPLICIT_WAIT)
         driver.set_page_load_timeout(settings.PAGE_LOAD_TIMEOUT)
         driver.maximize_window()
+        logger.info(f"{browser_name.capitalize()} driver created successfully")
         return driver
     
     @staticmethod

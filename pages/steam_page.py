@@ -85,8 +85,8 @@ class SteamGamePage(BasePage):
 
 
 class SteamAboutPage(BasePage):
-    ONLINE_PLAYERS_AMOUNT = (By.CSS_SELECTOR, "div.online_stat_label.gamers_online")
-    INGAME_PLAYERS_AMOUNT = (By.CSS_SELECTOR, "div.online_stat_label.gamers_in_game")
+    ONLINE_PLAYERS_AMOUNT = (By.CSS_SELECTOR, "div.online_stat:nth-of-type(1)")
+    INGAME_PLAYERS_AMOUNT = (By.CSS_SELECTOR, "div.online_stat:nth-of-type(2)")
     ABOUT_PAGE_URL_FRAGMENT = '/about/'
     
     def veify_page_loaded(self):
