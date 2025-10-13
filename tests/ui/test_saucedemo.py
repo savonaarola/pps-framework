@@ -1,7 +1,10 @@
 from pages.login_page import LoginPage
 import pytest
+import allure
 
 
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.title("Login without credentials shows error")
 @pytest.mark.ui
 def test_login_with_no_credentials(driver):
     driver.get("https://www.saucedemo.com/")

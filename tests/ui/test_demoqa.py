@@ -1,9 +1,11 @@
 import pytest
 from pages.demoqa_page import AutomationPracticeFormPage
 from test_data.demoqa_form_data import * 
+import allure
+from core.logger import logging
 
-
-
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.title("Fill and submit the practice form with valid data")
 @pytest.mark.ui
 @pytest.mark.positive
 def test_fill_form_correct(driver):
@@ -24,6 +26,8 @@ def test_fill_form_with_picture(driver):
     form_page.click_submit()
     assert form_page.is_form_submitted(), "Форма не была успешно отправлена"
 
+@allure.severity(allure.severity_level.NORMAL)
+@allure.title("Fill and submit the practice form with invalid email")
 @pytest.mark.ui
 @pytest.mark.negative
 def test_fill_form_invalid_email(driver):
@@ -34,6 +38,9 @@ def test_fill_form_invalid_email(driver):
     form_page.click_submit()
     assert form_page.is_field_invalid(form_page.EMAIL_INPUT), "Поле Email не помечено как некорректное"
 
+
+@allure.severity(allure.severity_level.NORMAL)
+@allure.title("Fill and submit the practice form with invalid mobile number")
 @pytest.mark.ui
 @pytest.mark.negative
 def test_fill_form_invalid_mobile(driver):
@@ -44,6 +51,8 @@ def test_fill_form_invalid_mobile(driver):
     form_page.click_submit()
     assert form_page.is_field_invalid(form_page.MOBILE_INPUT), "Поле Mobile не помечено как некорректное"
 
+@allure.severity(allure.severity_level.NORMAL)
+@allure.title("Fill and submit the practice form without selecting gender")
 @pytest.mark.ui
 @pytest.mark.negative
 def test_fill_form_no_gender(driver):
@@ -54,6 +63,8 @@ def test_fill_form_no_gender(driver):
     form_page.click_submit()
     assert form_page.is_field_invalid(form_page.MALE_GENDER_INPUT), "Поле Gender не помечено как некорректное"
 
+@allure.severity(allure.severity_level.NORMAL)
+@allure.title("Submit the practice form with all fields empty")
 @pytest.mark.ui
 @pytest.mark.negative
 def test_fill_form_empty(driver):

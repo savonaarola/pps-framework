@@ -1,5 +1,5 @@
 from config.settings import settings
-
+import allure
 from selenium import webdriver
 from typing import Union
 
@@ -34,7 +34,8 @@ class BasePage:
             return elements
         except TimeoutException:
             raise
-        
+
+    @allure.step("Clicking on element {locator}")
     def click(self, locator, timeout=None):
         wait_time = timeout or self.timeout
         try:
@@ -48,6 +49,8 @@ class BasePage:
             element.click()
         except TimeoutException:
             raise
+
+    @allure.step("Clicking on element {locator} using JavaScript")
     def click_js(self, locator, timeout=None):
         wait_time = timeout or self.timeout
         try:
@@ -67,6 +70,8 @@ class BasePage:
             return element
         except TimeoutException:
             raise
+    
+    @allure.step("Getting text from element {locator}")
     def get_text(self,locator,timeout=None):
         element = self.find_element(locator, timeout)
         text = element.text

@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv
+import sys
+from pathlib import Path
 
 load_dotenv()
 
@@ -17,6 +19,7 @@ class Settings:
         self.LOG_PATH = os.getenv("LOG_PATH", "reports/logs")
         self.LOG_FORMAT_CONSOLE = '%(asctime)s | %(levelname)s | %(message)s'
         self.LOG_FORMAT_FILE = '%(asctime)s | %(levelname)s | %(name)s | %(message)s'
+        self.ALLURE_RESULTS_PATH = Path(os.getenv("ALLURE_RESULTS_PATH", "reports/allure-results"))
         self.BASE_URL = os.getenv("BASE_URL", "https://example.com")
 
 settings = Settings()

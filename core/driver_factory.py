@@ -64,5 +64,6 @@ class DriverFactory:
         try:
             if driver:
                 driver.quit()
+                logger.info("Driver quit successfully")
         except Exception as e:
             raise e
