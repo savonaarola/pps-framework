@@ -7,10 +7,11 @@ import allure
 logger = logger = logging.getLogger(__name__)
 faker = Faker()
 
-
-@pytest.mark.api
+@allure.epic("User API")
 @allure.feature("Login")
+@allure.title("User can login")
 @allure.severity(allure.severity_level.CRITICAL)
+@pytest.mark.api
 @pytest.mark.smoke
 def test_login_user(http_client, new_user):
     json = {
@@ -24,8 +25,10 @@ def test_login_user(http_client, new_user):
     assert "token" in r.json()
 
 
+@allure.epic("User API")
 @pytest.mark.api
 @allure.feature("Registration")
+@allure.title("User can register")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke
 def test_add_user(http_client):
@@ -47,8 +50,10 @@ def test_add_user(http_client):
 
     
 
+@allure.epic("User API")
 @pytest.mark.api
 @allure.feature("Update")
+@allure.title("User can update profile")
 @allure.severity(allure.severity_level.NORMAL)
 def test_update_user(http_client, new_user, auth_headers):
     logger.info(f"Existing user: {new_user.get("user").get("firstName")} {new_user.get("user").get("lastName")} {new_user.get("email")}")
@@ -62,8 +67,10 @@ def test_update_user(http_client, new_user, auth_headers):
     logger.info(f"Response: {r.json()}")
 
 
+@allure.epic("User API")
 @pytest.mark.api
 @allure.feature("Update")
+@allure.title("User can't update his email with someone's email")
 @allure.severity(allure.severity_level.NORMAL)
 def test_update_user_with_someone_email(http_client, new_user, auth_headers):
     logger.info(f"Existing user: {new_user.get("user").get("firstName")} {new_user.get("user").get("lastName")} {new_user.get("email")}")
@@ -80,8 +87,11 @@ def test_update_user_with_someone_email(http_client, new_user, auth_headers):
     logger.info(f"Response: {r.json()}")
 
 
+
+@allure.epic("User API")
 @pytest.mark.api
 @allure.feature("Logout")
+@allure.title("User can logiut")
 @allure.severity(allure.severity_level.NORMAL)
 @pytest.mark.smoke
 def test_user_logout(http_client, auth_headers):
@@ -96,6 +106,7 @@ def test_user_logout(http_client, auth_headers):
 
 
 @pytest.mark.api
+@allure.epic("User API")
 @allure.feature("Unauthorized access")
 class TestUserUnauthorized:
 
