@@ -21,5 +21,6 @@ class Settings:
         self.LOG_FORMAT_FILE = '%(asctime)s | %(levelname)s | %(name)s | %(message)s'
         self.ALLURE_RESULTS_PATH = Path(os.getenv("ALLURE_RESULTS_PATH", "reports/allure-results"))
         self.BASE_URL = os.getenv("BASE_URL", "https://example.com")
-
+        self.API_BASE_URL = os.getenv("API_BASE_URL","https://thinking-tester-contact-list.herokuapp.com/")
+        
 settings = Settings()

@@ -3,3 +3,5 @@ selenium
 webdriver-manager
 faker
 allure-pytest>=2.15.0
+httpx
+python-dotenv
