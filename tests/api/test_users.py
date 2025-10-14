@@ -21,7 +21,7 @@ def test_login_user(http_client, new_user):
     logger.info(f"Response json: {r.json()}")
     assert r.status_code == 200
     assert r.json().get("firstName") == new_user.get("firstName")
-
+    assert "token" in r.json()
 
 
 @pytest.mark.api
@@ -54,6 +54,21 @@ def test_update_user(http_client, new_user, auth_headers):
     logger.info(f"Existing user: {new_user.get("user").get("firstName")} {new_user.get("user").get("lastName")} {new_user.get("email")}")
 
     update_data = {
+        "email": "test@test.com"
+    }
+    logger.info(f"Updating email to {update_data['email']}")
+    r = http_client.patch("/users/me", json=update_data, headers=auth_headers)
+    assert r.status_code == 400
+    logger.info(f"Response: {r.json()}")
+
+
+@pytest.mark.api
+@allure.feature("Update")
+@allure.severity(allure.severity_level.NORMAL)
+def test_update_user_with_someone_email(http_client, new_user, auth_headers):
+    logger.info(f"Existing user: {new_user.get("user").get("firstName")} {new_user.get("user").get("lastName")} {new_user.get("email")}")
+
+    update_data = {
         "lastName": faker.last_name(),
         "email": faker.email()
     }
@@ -65,7 +80,14 @@ def test_update_user(http_client, new_user, auth_headers):
     logger.info(f"Response: {r.json()}")
 
 
+@pytest.mark.api
+@allure.feature("Logout")
+@allure.severity(allure.severity_level.NORMAL)
+@pytest.mark.smoke
+def test_user_logout(http_client, auth_headers):
 
+    r = http_client.post("/users/logout", headers=auth_headers)
+    assert r.status_code == 200
 
 
 
