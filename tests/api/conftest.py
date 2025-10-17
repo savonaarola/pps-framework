@@ -29,7 +29,7 @@ def new_user(http_client):
     response = http_client.post("/users", json=user_data)
     assert response.status_code == 201, f"Failed to create user: {response.text}"
 
-    logger.info(f"Created user: {response.json().get("user").get("firstName")} {response.json().get("user").get("lastName")}, {response.json().get("user").get("email")}")
+    logger.info(f"Created user: {response.json().get('user').get('firstName')} {response.json().get('user').get('lastName')}, {response.json().get('user').get('email')}")
     user_response = response.json()
     token = user_response.get("token")
 
@@ -45,7 +45,7 @@ def new_user(http_client):
     delete_response = http_client.delete(
         "/users/me",
         headers={"Authorization": f"Bearer {token}"})
-    logger.info(f"Deleted user: {user_data.get("firstName")} {user_data.get("lastName")}, {user_data.get("email")}")
+    logger.info(f"Deleted user: {user_data.get('firstName')} {user_data.get('lastName')}, {user_data.get('email')}")
     if delete_response.status_code != 200:
         logger.warning(
         f"Failed to delete user {user_data['email']}. "

@@ -43,7 +43,7 @@ def test_add_user(http_client):
     r = http_client.post("/users", json=user_data)
     assert r.status_code == 201
     assert "token" in r.json()
-    logger.info(f"Created user: {r.json().get("user").get("firstName")} {r.json().get("user").get("lastName")}, {r.json().get("user").get("email")}")
+    logger.info(f"Created user: {r.json().get('user').get('firstName')} {r.json().get('user').get('lastName')}, {r.json().get('user').get('email')}")
     
     token = r.json()["token"]
     http_client.delete("/users/me", headers={"Authorization": f"Bearer {token}"})
@@ -56,7 +56,7 @@ def test_add_user(http_client):
 @allure.title("User can update profile")
 @allure.severity(allure.severity_level.NORMAL)
 def test_update_user(http_client, new_user, auth_headers):
-    logger.info(f"Existing user: {new_user.get("user").get("firstName")} {new_user.get("user").get("lastName")} {new_user.get("email")}")
+    logger.info(f"Existing user: {new_user.get('user').get('firstName')} {new_user.get('user').get('lastName')} {new_user.get('email')}")
 
     update_data = {
         "email": "test@test.com"
@@ -73,7 +73,7 @@ def test_update_user(http_client, new_user, auth_headers):
 @allure.title("User can't update his email with someone's email")
 @allure.severity(allure.severity_level.NORMAL)
 def test_update_user_with_someone_email(http_client, new_user, auth_headers):
-    logger.info(f"Existing user: {new_user.get("user").get("firstName")} {new_user.get("user").get("lastName")} {new_user.get("email")}")
+    logger.info(f"Existing user: {new_user.get('user').get('firstName')} {new_user.get('user').get('lastName')} {new_user.get('email')}")
 
     update_data = {
         "lastName": faker.last_name(),

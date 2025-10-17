@@ -78,7 +78,7 @@ def test_add_contact_to_list_of_contacts(http_client, auth_headers, multiple_con
     assert rv.status_code == 200
     assert len(rv.json()) == len(multiple_contacts)+1
     allure.attach(
-        f"Added new contact {contact_data.get("firstName")} {contact_data.get("lastName")} to the list",
+        f"Added new contact {contact_data.get('firstName')} {contact_data.get('lastName')} to the list",
         name="Adding new contact",
         attachment_type=allure.attachment_type.TEXT
     )
